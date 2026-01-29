@@ -2,15 +2,15 @@ options:
   logging: CLOUD_LOGGING_ONLY
 
 steps:
-- name: busybox
+- name: PROJECT_ID
   args: ["echo", "Project = $PROJECT_ID"]
 
-- name: busybox
+- name: COMMIT_SHA
   args: ["echo", "Commit SHA = $COMMIT_SHA"]
 
-- name: busybox
+- name: SHORT_SHA
   args: ["echo", "Short SHA = $SHORT_SHA"]
 
-- name: busybox
+- name: BUILD_ID
   args: ["echo", "Build ID = $BUILD_ID"]
 
