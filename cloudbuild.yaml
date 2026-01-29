@@ -1,37 +1,23 @@
 options:
   logging: CLOUD_LOGGING_ONLY
 
-substitutions:
-  _SERVICE_NAME: simple-app
-  _REGION: us-central1
-
 steps:
-# Step 1: Build Docker image
-- name: gcr.io/cloud-builders/docker
+- name: gcr.io/cloud-builders/gcloud
   args:
-    - build
-    - -t
-    - us-central1-docker.pkg.dev/$PROJECT_ID/my-repo/simple-app:$COMMIT_SHA
-    - .
+    - echo
+    - "Project = $PROJECT_ID"
 
-# Step 2: Push Docker image
-- name: gcr.io/cloud-builders/docker
+- name: gcr.io/cloud-builders/gcloud
   args:
-    - push
-    - us-central1-docker.pkg.dev/$PROJECT_ID/my-repo/simple-app:$COMMIT_SHA
+    - echo
+    - "Commit SHA = $COMMIT_SHA"
 
-# Step 3: Deploy to Cloud Run
-- name: gcr.io/google.com/cloudsdktool/cloud-sdk
-  entrypoint: gcloud
+- name: gcr.io/cloud-builders/gcloud
   args:
-    - run
-    - deploy
-    - ${_SERVICE_NAME}
-    - --image=us-central1-docker.pkg.dev/$PROJECT_ID/my-repo/simple-app:$COMMIT_SHA
-    - --region=${_REGION}
-    - --platform=managed
-    - --allow-unauthenticated
-    - --service-account=my-app-run-sa@$PROJECT_ID.iam.gserviceaccount.com
+    - echo
+    - "Short SHA = $SHORT_SHA"
 
-images:
-- us-central1-docker.pkg.dev/$PROJECT_ID/my-repo/simple-app:$COMMIT_SHA
+- name: gcr.io/cloud-builders/gcloud
+  args:
+    - echo
+    - "Build ID = $BUILD_ID"
