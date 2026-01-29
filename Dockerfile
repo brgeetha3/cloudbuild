@@ -1,11 +1,10 @@
-# Use official Python image
 FROM python:3.11-slim
 
-# Set working directory
 WORKDIR /app
-
-# Copy all app files
 COPY . .
 
-# Command to run your app
+# If using Flask or FastAPI
 CMD ["python", "main.py"]
+
+# Optional: tell Docker the container listens on 8080
+EXPOSE 8080
