@@ -1,10 +1,18 @@
+# Use a lightweight Python image
 FROM python:3.11-slim
 
+# Set working directory
 WORKDIR /app
+
+# Copy app files
 COPY . .
 
-# If using Flask or FastAPI
-CMD ["python", "main.py"]
+# Install dependencies (if any)
+RUN pip install flask
 
-# Optional: tell Docker the container listens on 8080
+# Expose the port Cloud Run expects
 EXPOSE 8080
+
+# Start the app
+CMD ["python", "main.py"]
+8080
