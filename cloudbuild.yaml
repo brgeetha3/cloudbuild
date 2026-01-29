@@ -14,10 +14,4 @@ steps:
       echo "COMMIT_SHA   = $COMMIT_SHA"
       echo "SHORT_SHA    = $SHORT_SHA"
       echo "BRANCH_NAME  = $BRANCH_NAME"
-      echo "TAG_NAME     = $TAG_NAME"
       echo "========================================="
-
-# (Optional) Step 2: Example usage - tagging an image
-- name: gcr.io/cloud-builders/docker
-  args:
-    - version
