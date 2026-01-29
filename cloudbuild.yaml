@@ -2,17 +2,20 @@ options:
   logging: CLOUD_LOGGING_ONLY
 
 steps:
-# Step 1: Recognize Built-in Cloud Build variables
-- name: bash
-  script: |
-    echo "===== Built-in Cloud Build Variables ====="
-    echo "PROJECT_ID   = $PROJECT_ID"
-    echo "BUILD_ID     = $BUILD_ID"
-    echo "COMMIT_SHA   = $COMMIT_SHA"
-    echo "SHORT_SHA    = $SHORT_SHA"
-    echo "BRANCH_NAME  = $BRANCH_NAME"
-    echo "TAG_NAME     = $TAG_NAME"
-    echo "=========================================="
+# Step 1: Recognize Built-in Cloud Build variables using BusyBox
+- name: busybox
+  args:
+    - sh
+    - -c
+    - |
+      echo "===== Built-in Cloud Build Variables ====="
+      echo "PROJECT_ID   = $PROJECT_ID"
+      echo "BUILD_ID     = $BUILD_ID"
+      echo "COMMIT_SHA   = $COMMIT_SHA"
+      echo "SHORT_SHA    = $SHORT_SHA"
+      echo "BRANCH_NAME  = $BRANCH_NAME"
+      echo "TAG_NAME     = $TAG_NAME"
+      echo "========================================="
 
 # (Optional) Step 2: Example usage - tagging an image
 - name: gcr.io/cloud-builders/docker
