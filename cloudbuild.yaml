@@ -36,7 +36,6 @@ steps:
     - --platform=managed
     - --allow-unauthenticated
     - --set-secrets=DB_PASSWORD=DB_PASSWORD:latest
-    - --service-account=$PROJECT_NUMBER@cloudbuild.gserviceaccount.com
 
 images:
 - us-central1-docker.pkg.dev/$PROJECT_ID/my-repo/my-app:$COMMIT_SHA
