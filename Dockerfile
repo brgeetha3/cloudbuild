@@ -7,7 +7,7 @@ WORKDIR /app
 # Copy app files
 COPY . .
 
-# Install dependencies (if any)
+# Install dependencies (Flask in this example)
 RUN pip install flask
 
 # Expose the port Cloud Run expects
@@ -15,4 +15,3 @@ EXPOSE 8080
 
 # Start the app
 CMD ["python", "main.py"]
-8080
