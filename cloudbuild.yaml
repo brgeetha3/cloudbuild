@@ -1,12 +1,11 @@
 options:
   logging: CLOUD_LOGGING_ONLY
   
-# cloudbuild.yaml
 images:
   - 'us-central1-docker.pkg.dev/project-35b5f580-e42e-4c42-914/my-repo/${_SERVICE_NAME}:${_ENV}'
 
 steps:
-  # 1️⃣ Build Docker image
+  # Build Docker image
   - name: 'gcr.io/cloud-builders/docker'
     args: [
       'build',
@@ -14,14 +13,14 @@ steps:
       '.'
     ]
 
-  # 2️⃣ Push Docker image to Artifact Registry
+  # Push Docker image
   - name: 'gcr.io/cloud-builders/docker'
     args: [
       'push',
       'us-central1-docker.pkg.dev/project-35b5f580-e42e-4c42-914/my-repo/${_SERVICE_NAME}:${_ENV}'
     ]
 
-  # 3️⃣ Deploy to Cloud Run
+  # Deploy to Cloud Run
   - name: 'gcr.io/cloud-builders/gcloud'
     args: [
       'run', 'deploy', '${_SERVICE_NAME}',
