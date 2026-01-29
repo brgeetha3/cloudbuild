@@ -1,22 +1,37 @@
+# cloudbuild.yaml
 options:
   logging: CLOUD_LOGGING_ONLY
 
+# 1️⃣ Define substitutions (optional, for image/service names)
+substitutions:
+  _SERVICE_NAME: simple-app
+  _REGION: us-central1
+  _IMAGE: us-central1-docker.pkg.dev/$PROJECT_ID/my-repo/simple-app
+
+# 2️⃣ Build steps
 steps:
+# Step 1: Build Docker image
 - name: gcr.io/cloud-builders/docker
-  args: ["build", "-t", "us-central1-docker.pkg.dev/$PROJECT_ID/my-repo/my-app:$COMMIT_SHA", "."]
+  args: ["build", "-t", "${_IMAGE}:$COMMIT_SHA", "."]
 
+# Step 2: Push Docker image to Artifact Registry
 - name: gcr.io/cloud-builders/docker
-  args: ["push", "us-central1-docker.pkg.dev/$PROJECT_ID/my-repo/my-app:$COMMIT_SHA"]
+  args: ["push", "${_IMAGE}:$COMMIT_SHA"]
 
+# Step 3: Deploy to Cloud Run (generic)
 - name: gcr.io/google.com/cloudsdktool/cloud-sdk
   entrypoint: gcloud
   args:
     - run
     - deploy
-    - my-app
-    - --image=us-central1-docker.pkg.dev/$PROJECT_ID/my-repo/my-app:$COMMIT_SHA
-    - --region=us-central1
+    - ${_SERVICE_NAME}
+    - --image=${_IMAGE}:$COMMIT_SHA
+    - --region=${_REGION}
+    - --platform=managed
     - --allow-unauthenticated
     - --service-account=my-app-run-sa@$PROJECT_ID.iam.gserviceaccount.com
-    - --set-env-vars=APP_ENV=prod
-    - --set-secrets=DB_PASSWORD=DB_PASSWORD:latest
+    # ⚠️ No --set-env-vars or --set-secrets here!
+
+# 3️⃣ Declare built images for Cloud Build caching & UI
+images:
+- ${_IMAGE}:$COMMIT_SHA
