@@ -1,42 +1,37 @@
-# cloudbuild.yaml
 options:
   logging: CLOUD_LOGGING_ONLY
 
-# Optional substitutions for flexibility
 substitutions:
   _SERVICE_NAME: simple-app
   _REGION: us-central1
-  _IMAGE: us-central1-docker.pkg.dev/$PROJECT_ID/my-repo/simple-app
 
-# Build steps
 steps:
 # Step 1: Build Docker image
 - name: gcr.io/cloud-builders/docker
   args:
     - build
-    - "-t"
-    - "${_IMAGE}:$COMMIT_SHA"
-    - "."
+    - -t
+    - us-central1-docker.pkg.dev/$PROJECT_ID/my-repo/simple-app:$COMMIT_SHA
+    - .
 
-# Step 2: Push Docker image to Artifact Registry
+# Step 2: Push Docker image
 - name: gcr.io/cloud-builders/docker
   args:
     - push
-    - "${_IMAGE}:$COMMIT_SHA"
+    - us-central1-docker.pkg.dev/$PROJECT_ID/my-repo/simple-app:$COMMIT_SHA
 
-# Step 3: Deploy image to Cloud Run (generic, no env vars/secrets)
+# Step 3: Deploy to Cloud Run
 - name: gcr.io/google.com/cloudsdktool/cloud-sdk
   entrypoint: gcloud
   args:
     - run
     - deploy
-    - "${_SERVICE_NAME}"
-    - --image="${_IMAGE}:$COMMIT_SHA"
+    - ${_SERVICE_NAME}
+    - --image=us-central1-docker.pkg.dev/$PROJECT_ID/my-repo/simple-app:$COMMIT_SHA
     - --region=${_REGION}
     - --platform=managed
     - --allow-unauthenticated
-    - --service-account=my-app-run-sa@${PROJECT_ID}.iam.gserviceaccount.com
+    - --service-account=my-app-run-sa@$PROJECT_ID.iam.gserviceaccount.com
 
-# Declare built images for Cloud Build caching & UI
 images:
-  - "${_IMAGE}:$COMMIT_SHA"
+- us-central1-docker.pkg.dev/$PROJECT_ID/my-repo/simple-app:$COMMIT_SHA
