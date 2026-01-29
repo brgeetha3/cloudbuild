@@ -6,7 +6,7 @@ options:
 substitutions:
   _SERVICE_NAME: simple-app
   _REGION: us-central1
-  _IMAGE: us-central1-docker.pkg.dev/${PROJECT_ID}/my-repo/simple-app
+  _IMAGE: us-central1-docker.pkg.dev/$PROJECT_ID/my-repo/simple-app
 
 # Build steps
 steps:
