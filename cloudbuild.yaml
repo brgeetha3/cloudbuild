@@ -1,30 +1,31 @@
 options:
   logging: CLOUD_LOGGING_ONLY
   
+# cloudbuild.yaml
 images:
-  - 'us-central1-docker.pkg.dev/$PROJECT_ID/$REPO_NAME/${_SERVICE_NAME}:${_ENV}'
+  - 'us-central1-docker.pkg.dev/project-35b5f580-e42e-4c42-914/my-repo/${_SERVICE_NAME}:${_ENV}'
 
 steps:
-  # Build Docker image
+  # 1️⃣ Build Docker image
   - name: 'gcr.io/cloud-builders/docker'
     args: [
       'build',
-      '-t', 'us-central1-docker.pkg.dev/$PROJECT_ID/$REPO_NAME/${_SERVICE_NAME}:${_ENV}',
+      '-t', 'us-central1-docker.pkg.dev/project-35b5f580-e42e-4c42-914/my-repo/${_SERVICE_NAME}:${_ENV}',
       '.'
     ]
 
-  # Push Docker image
+  # 2️⃣ Push Docker image to Artifact Registry
   - name: 'gcr.io/cloud-builders/docker'
     args: [
       'push',
-      'us-central1-docker.pkg.dev/$PROJECT_ID/$REPO_NAME/${_SERVICE_NAME}:${_ENV}'
+      'us-central1-docker.pkg.dev/project-35b5f580-e42e-4c42-914/my-repo/${_SERVICE_NAME}:${_ENV}'
     ]
 
-  # Deploy to Cloud Run
+  # 3️⃣ Deploy to Cloud Run
   - name: 'gcr.io/cloud-builders/gcloud'
     args: [
       'run', 'deploy', '${_SERVICE_NAME}',
-      '--image', 'us-central1-docker.pkg.dev/$PROJECT_ID/$REPO_NAME/${_SERVICE_NAME}:${_ENV}',
+      '--image', 'us-central1-docker.pkg.dev/project-35b5f580-e42e-4c42-914/my-repo/${_SERVICE_NAME}:${_ENV}',
       '--region', '${_REGION}',
       '--platform', 'managed'
     ]
