@@ -1,16 +1,12 @@
 options:
   logging: CLOUD_LOGGING_ONLY
   
-steps:
-- name: busybox
-  args: ["echo", "Project = $PROJECT_ID"]
-
-- name: busybox
-  args: ["echo", "Commit SHA = $COMMIT_SHA"]
-
-- name: busybox
-  args: ["echo", "Short SHA = $SHORT_SHA"]
-
-- name: busybox
-  args: ["echo", "Build ID = $BUILD_ID"]
-
+- name: bash
+  script: |
+    echo "🔹 Built-in Cloud Build variables"
+    echo "PROJECT_ID   = $PROJECT_ID"
+    echo "BUILD_ID     = $BUILD_ID"
+    echo "COMMIT_SHA   = $COMMIT_SHA"
+    echo "SHORT_SHA    = $SHORT_SHA"
+    echo "BRANCH_NAME  = $BRANCH_NAME"
+    echo "TAG_NAME     = $TAG_NAME"
