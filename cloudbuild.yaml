@@ -1,6 +1,5 @@
 options:
   logging: CLOUD_LOGGING_ONLY
-  
 - name: busybox
   args:
     - sh
