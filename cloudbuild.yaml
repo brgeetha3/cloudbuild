@@ -2,22 +2,9 @@ options:
   logging: CLOUD_LOGGING_ONLY
 
 steps:
-- name: gcr.io/cloud-builders/gcloud
-  args:
-    - echo
-    - "Project = $PROJECT_ID"
-
-- name: gcr.io/cloud-builders/gcloud
-  args:
-    - echo
-    - "Commit SHA = $COMMIT_SHA"
-
-- name: gcr.io/cloud-builders/gcloud
-  args:
-    - echo
-    - "Short SHA = $SHORT_SHA"
-
-- name: gcr.io/cloud-builders/gcloud
-  args:
-    - echo
-    - "Build ID = $BUILD_ID"
+- name: bash
+  script: |
+    echo "Project      = $PROJECT_ID"
+    echo "Commit SHA   = $COMMIT_SHA"
+    echo "Short SHA    = $SHORT_SHA"
+    echo "Build ID     = $BUILD_ID"
