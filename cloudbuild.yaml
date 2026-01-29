@@ -32,7 +32,7 @@ steps:
     - deploy
     - "${_SERVICE_NAME}"
     - --image="${_IMAGE}:$COMMIT_SHA"
-    - --region="${_REGION}"
+    - --region=${_REGION}
     - --platform=managed
     - --allow-unauthenticated
     - --service-account=my-app-run-sa@${PROJECT_ID}.iam.gserviceaccount.com
