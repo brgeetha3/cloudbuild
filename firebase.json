@@ -1,12 +1,8 @@
 {
   "hosting": {
-    "site": "firebase-cloudbuild",
+    "site": "fir-cloudbuild",
     "public": "public",
-    "ignore": [
-      "firebase.json",
-      "**/.*",
-      "**/node_modules/**"
-    ]
+    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"]
   }
 }
 
