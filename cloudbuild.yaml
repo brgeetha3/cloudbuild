@@ -7,4 +7,6 @@ steps:
     args:
       - -c
       - |
+        npm install -g firebase-tools
+        firebase --version
         firebase deploy --only hosting --project $PROJECT_ID
