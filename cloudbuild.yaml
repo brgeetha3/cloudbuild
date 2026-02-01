@@ -8,5 +8,6 @@ steps:
       - -c
       - |
         npm install -g firebase-tools
-        firebase --version
-        firebase deploy --only hosting --project $PROJECT_ID
+        npx firebase --version
+        npx firebase deploy --only hosting --project $PROJECT_ID
+
