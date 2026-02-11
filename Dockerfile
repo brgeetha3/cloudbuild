@@ -1,18 +1,4 @@
-FROM node:18
-
+FROM python:3.10-slim
 WORKDIR /app
-
-RUN echo "\
-const http = require('http'); \
-const PORT = process.env.PORT || 8080; \
-http.createServer((req, res) => { \
-  res.writeHead(200, {'Content-Type': 'text/plain'}); \
-  res.end('Hello am cloud build'); \
-}).listen(PORT, '0.0.0.0', () => { \
-  console.log('Server running on port', PORT); \
-});\
-" > index.js
-
-EXPOSE 8080
-
-CMD ["node", "index.js"]
+COPY main.py .
+CMD ["python", "main.py"]
