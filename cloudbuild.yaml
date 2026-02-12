@@ -14,8 +14,7 @@ steps:
       [
         'run', 'jobs', 'deploy', 'secret-job',
         '--image', 'asia-south1-docker.pkg.dev/$PROJECT_ID/cloudrun-jobs/job:latest',
-        '--region', 'asia-south1',
-        '--set-secrets', 'API_KEY=api-key:latest'
+        '--region', 'asia-south1'
       ]
 
 images:
