@@ -11,7 +11,7 @@ steps:
     - '-c'
     - |
       echo "Secret during build:"
-      echo $BUILD_SECRET
+      echo $$BUILD_SECRET
 
 # Step 2: Build Docker image
 - name: 'gcr.io/cloud-builders/docker'
