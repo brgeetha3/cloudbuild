@@ -3,7 +3,7 @@ options:
 
 steps:
 
-# Step 1: Use secret inside build
+# Step 1: Use secrets inside build
 - name: 'ubuntu'
   entrypoint: 'bash'
   args:
