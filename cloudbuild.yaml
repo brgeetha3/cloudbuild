@@ -6,6 +6,7 @@ steps:
 # Step 1: Use secrets inside build
 - name: 'ubuntu'
   entrypoint: 'bash'
+  secretEnv: ['BUILD_SECRET']
   args:
     - '-c'
     - |
